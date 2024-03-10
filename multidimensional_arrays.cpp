@@ -1,9 +1,9 @@
 #include <iostream>
 using namespace std;
 
-int ** utworz(const int n, const int m){
+int ** utworz(const int n, const int m){ //allocating memory padding with zeros and returning an array
     
-    int ** t = new int * [n];
+    int ** t = new int * [n]; //creating pointer
     
     for(int i=0; i<n; i++)
 
@@ -18,7 +18,7 @@ int ** utworz(const int n, const int m){
     return t;        
 } 
 
-void utworz(int **& t, const int n, const int m){
+void utworz(int **& t, const int n, const int m){ //with pointer as argument
 
     t = new int * [n];
 
@@ -34,7 +34,7 @@ void utworz(int **& t, const int n, const int m){
 	
 }
 
-void utworzl(int** t, const int n, const int m){
+void utworzl(int** t, const int n, const int m){ //only padding 0
 
     for(int i=0; i<n; i++)
 
@@ -44,7 +44,7 @@ void utworzl(int** t, const int n, const int m){
 
 }
 
-void wypisz(const int * const *t, const int n, const int m){
+void wypisz(const int * const *t, const int n, const int m){ //writing array in standard output
     
     for(int i = 0; i<n; i++){
         for(int j = 0; j<m; j++)
@@ -54,7 +54,7 @@ void wypisz(const int * const *t, const int n, const int m){
     cout<<endl;
 }
 
-void wypelnij(int ** t, const int n, const int m){
+void wypelnij(int ** t, const int n, const int m){ 
     
     for(int i=0; i<n; i++)
         for(int j=0; j<m; j++)
@@ -70,7 +70,7 @@ void wypelnij(int **& t, const int n, const int m, int a, int b){
     
 }
 
-void usun(int **& t, const int n){
+void usun(int **& t, const int n){ //freeing memory
 	if(t){
 		for(int i = 0; i<n; i++)
 			delete [] t[i];
