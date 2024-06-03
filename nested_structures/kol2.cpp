@@ -17,6 +17,7 @@ struct SPietro{
   
   bool wczytaj_P(ifstream&, SPietro&);
   bool zapisz(ostream&, const SPietro*);
+  
 };
 
 struct SKlatka{
@@ -362,6 +363,35 @@ bool SBlok::zapisz(ostream& out, const SBlok* b){
   return true;
 }
 
+float wysokosc_pietra(const SPietro& p){
+  float max_wys = 0.0;
+  for(int i = 0; i<p.l_mieszkan; i++){
+    if( max_wys < p.opis[i].wys){
+      max_wys = p.opis[i].wys;
+    }
+  }
+  return max_wys;
+}
+
+float wysokosc_klatki(const SKlatka& k){
+  float wysokosc = 0.0;
+  for(int i = 0; i< k.l_pieter; i++){
+    wysokosc += wysokosc_pietra(k.opis[i]);
+  }
+  return wysokosc;
+}
+float wysokosc_bloku(const SBlok& b){
+  float wysokosc = 0.0;
+  
+  for(int i = 0; i<b.l_klatek; i++){
+    if(wysokosc < wysokosc_klatki(b.opis[i])){
+      wysokosc = wysokosc_klatki(b.opis[i]);
+    }
+  }
+  return wysokosc;
+}
+
+
 int main(int argc, char ** argv){
 
   if(argc != 3){
@@ -414,6 +444,16 @@ int main(int argc, char ** argv){
     usun(blok);
     return -5;
   }
+  
+  cout<<"wysokosc bloku = "<< wysokosc_bloku(blok)<<endl;
+  
+  for(int i = 0;i<blok.l_klatek; i++){
+    cout<<"dla klatki "<< i+1 <<"wysokosc = "<<wysokosc_klatki(blok.opis[i]) << endl;
+    for(int j = 0; j<blok.opis[i].l_pieter; j++){
+      cout<<"dla pietra "<<j+1 << " w klatce "<< i + 1<<"wysokos =  "<<wysokosc_pietra(blok.opis[i].opis[j])<< endl;
+    }
+  }
+  
   usun(blok);
   return 0;
 }
